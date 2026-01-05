@@ -25,24 +25,35 @@ public:
     void logMessage(std::string message);
 
 private:
-    std::queue<Request> requestQueue;
-    std::vector<WebServer> servers;
+    std::queue<Request> pQueue; // Processing Queue
+    std::queue<Request> sQueue; // Streaming Queue
+
+    std::vector<WebServer> pServers; // Processing Servers
+    std::vector<WebServer> sServers; // Streaming Servers
     int systemTime;
     
     // Tracks when we last resized the server pool
     int lastTimeChange; 
+    int nextServerID;
 
+    // Statistics
     long long int requestsFinished;
-    int scaleUpCount;
-    int scaleDownCount;
     int blockedCount;
+
+    // Specific counters for Processing Pool
+    int scaleUpCountP;
+    int scaleDownCountP;
+
+    // Specific counters for Streaming Pool
+    int scaleUpCountS;
+    int scaleDownCountS;
 
     // Log File Object
     std::ofstream logFile;
 
     // Helper functions for scaling
-    void incWebServers();
-    bool decWebServers();
+    void incWebServers(char type);
+    bool decWebServers(char type);
     
     // Optional: Firewall Data
     std::string blockedIPRange;
