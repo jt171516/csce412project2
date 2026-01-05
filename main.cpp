@@ -57,7 +57,7 @@ int main() {
 
         // B. Simulate New Traffic
         // Randomly add new requests during the simulation 
-        if (rand() % 10 == 0) {
+        if (rand() % 35 == 0) {
             lb.addRequest(createRandomRequest());
         }
 

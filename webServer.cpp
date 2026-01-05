@@ -23,8 +23,8 @@ void WebServer::startRequest(Request req, int currTime) {
 
 // Checks if the current request has finished
 bool WebServer::isRequestDone(int currTime) {
-    if (isBusy) {
-        return false;
+    if (!isBusy) {
+        return true;
     }
 
     // Calculate when the job should finish
