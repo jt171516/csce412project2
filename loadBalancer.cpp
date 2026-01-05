@@ -204,5 +204,7 @@ void LoadBalancer::printStats() {
     logMessage("\n--- Totals ---");
     logMessage("Total Servers Added:   " + std::to_string(scaleUpCountP + scaleUpCountS));
     logMessage("Total Servers Removed: " + std::to_string(scaleDownCountP + scaleDownCountS));
+    logMessage("Final Total Servers:   " + std::to_string(pServers.size() + sServers.size()));
+    logMessage("Final Total Queue:     " + std::to_string(getQueueSize()));
     logMessage("===================================");
 }

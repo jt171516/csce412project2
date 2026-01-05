@@ -5,6 +5,10 @@
 #include "loadBalancer.h"
 #include "request.h"
 
+// Constants for task times
+const int MIN_TASK_TIME = 40;
+const int MAX_TASK_TIME = 99;
+
 // Helper function to generate a random IP address
 std::string generateRandomIP() {
     return std::to_string(rand() % 255) + "." + 
@@ -18,7 +22,9 @@ Request createRandomRequest() {
     Request req;
     req.ip_in = generateRandomIP();
     req.ip_out = generateRandomIP();
-    req.time_to_process = (rand() % 60) + 40; // Random time between 40 and 99
+    
+    req.time_to_process = (rand() % (MAX_TASK_TIME - MIN_TASK_TIME + 1)) + MIN_TASK_TIME; 
+    
     req.job_type = (rand() % 2 == 0) ? 'P' : 'S'; // Randomly assign Processing or Streaming
     return req;
 }
@@ -41,6 +47,13 @@ int main() {
 
     // 2. Initialize Load Balancer
     LoadBalancer lb(num_servers, blocked_range);
+
+    lb.logMessage("\n=== Simulation Parameters ===");
+    lb.logMessage("Initial Servers: " + std::to_string(num_servers));
+    lb.logMessage("Starting Queue Size: " + std::to_string(num_servers * 20));
+    lb.logMessage("Target Duration: " + std::to_string(total_time) + " cycles");
+    lb.logMessage("Task Time Range: " + std::to_string(MIN_TASK_TIME) + " - " + std::to_string(MAX_TASK_TIME) + " cycles");
+    lb.logMessage("=============================\n");
 
     // 3. Pre-fill the Queue (Start with servers * 20 requests)
     std::cout << "Initializing queue with " << num_servers * 20 << " requests..." << std::endl;
@@ -93,8 +106,15 @@ int main() {
         }
     }
 
-    std::cout << "Simulation finished at cycle " << lb.getTime() << std::endl;
-    std::cout << "Final Queue Size: " << lb.getQueueSize() << std::endl;
+    lb.logMessage("\nSimulation finished at cycle " + std::to_string(lb.getTime()));
+
+    // Restate the simulation parameters explicitly
+    lb.logMessage("\n=== Simulation Parameters ===");
+    lb.logMessage("Initial Servers: " + std::to_string(num_servers));
+    lb.logMessage("Starting Queue Size: " + std::to_string(num_servers * 20));
+    lb.logMessage("Target Duration: " + std::to_string(total_time) + " cycles");
+    lb.logMessage("Task Time Range: " + std::to_string(MIN_TASK_TIME) + " - " + std::to_string(MAX_TASK_TIME) + " cycles");
+    lb.logMessage("=============================\n");
 
     lb.printStats();
 
