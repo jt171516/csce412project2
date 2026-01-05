@@ -18,7 +18,7 @@ Request createRandomRequest() {
     Request req;
     req.ip_in = generateRandomIP();
     req.ip_out = generateRandomIP();
-    req.time_to_process = (rand() % 500) + 10; // Random time between 10 and 510 cycles
+    req.time_to_process = (rand() % 60) + 40; // Random time between 40 and 99
     req.job_type = (rand() % 2 == 0) ? 'P' : 'S'; // Randomly assign Processing or Streaming
     return req;
 }
@@ -49,6 +49,10 @@ int main() {
     }
 
     // 4. The Main Simulation Loop
+    bool inBurst = false;
+    int burstTicksLeft = 0;
+    int cooldownTicks = 0;
+
     // We run until the LoadBalancer's internal time hits the user's limit
     while (lb.getTime() < total_time) {
         
@@ -56,9 +60,35 @@ int main() {
         lb.performCycle();
 
         // B. Simulate New Traffic
-        // Randomly add new requests during the simulation 
-        if (rand() % 35 == 0) {
-            lb.addRequest(createRandomRequest());
+        // // Randomly add new requests during the simulation 
+        // if (rand() % 30 == 0) {
+        //     lb.addRequest(createRandomRequest());
+        // }
+
+        if (cooldownTicks > 0) {
+            cooldownTicks--;
+        }
+
+        if (!inBurst && cooldownTicks == 0 && (rand() % 100) < 5) { // % chance to start a burst
+            inBurst = true;
+            burstTicksLeft = 20 + (rand() % 20); // burst lasts 20–39 cycles
+        }
+
+        if (inBurst) {
+            int newReq = 1 + (rand() % 3); // add 1-3 new requests per cycle
+            for (int i = 0; i < newReq; i++) {
+                lb.addRequest(createRandomRequest());
+            }
+            burstTicksLeft--;
+            if (burstTicksLeft == 0) {
+                inBurst = false;
+                cooldownTicks = 400 + (rand() % 500); // valley duration
+            }
+        } else {
+            // light trickle during valleys
+            if ((rand() % 50) == 0) {
+                lb.addRequest(createRandomRequest());
+            }
         }
 
         // Optional: Print status every 1000 cycles to keep log readable
@@ -71,6 +101,8 @@ int main() {
 
     std::cout << "Simulation finished at cycle " << lb.getTime() << std::endl;
     std::cout << "Final Queue Size: " << lb.getQueueSize() << std::endl;
+
+    lb.printStats();
 
     return 0;
 }

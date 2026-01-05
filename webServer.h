@@ -13,6 +13,9 @@ public:
     // Checks if the request is finished based on current time
     bool isRequestDone(int currTime);
 
+    // Helper to check status
+    bool isBusyStatus();
+
     // Returns the current request
     Request getRequest();
 

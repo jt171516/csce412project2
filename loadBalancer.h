@@ -19,6 +19,8 @@ public:
     int getQueueSize();
     int getTime();
 
+    void printStats();
+
 private:
     std::queue<Request> requestQueue;
     std::vector<WebServer> servers;
@@ -26,6 +28,10 @@ private:
     
     // Tracks when we last resized the server pool
     int lastTimeChange; 
+
+    long long int requestsFinished;
+    int scaleUpCount;
+    int scaleDownCount;
 
     // Helper functions for scaling
     void incWebServers();

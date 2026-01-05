@@ -10,6 +10,11 @@ LoadBalancer::LoadBalancer(int initial_servers, std::string blocked_ip) {
     lastTimeChange = 0;
     blockedIPRange = blocked_ip;
 
+    // Initialize Stats
+    requestsFinished = 0;
+    scaleUpCount = 0;
+    scaleDownCount = 0;
+
     // Create the initial set of servers
     for (int i = 0; i < initial_servers; i++) {
         servers.push_back(WebServer(i));
@@ -42,7 +47,7 @@ void LoadBalancer::incWebServers() {
 bool LoadBalancer::decWebServers() {
     // Iterate through vector to find an idle server
     for (auto it = servers.begin(); it != servers.end(); ++it) {
-        if (it->isRequestDone(systemTime)) { // Double check it is idle
+        if (!it->isBusyStatus()) { // Double check it is idle
             // Remove this specific server
             servers.erase(it);
             return true; 
@@ -56,12 +61,15 @@ bool LoadBalancer::decWebServers() {
 void LoadBalancer::performCycle() {
     // 1. HARVEST: Check for finished requests
     for (auto& server : servers) {
-        if (server.isRequestDone(systemTime)) {
-             // Request is done. You can log it here if you want.
-             Request finishedReq = server.getRequest();
-             std::cout << "Server " << server.getID() << " finished request from " 
-                       << finishedReq.ip_in << std::endl;
-        }
+        if (server.isBusyStatus()) {
+            if (server.isRequestDone(systemTime)) {
+                // Request is done. You can log it here if you want.
+                Request finishedReq = server.getRequest();
+                std::cout << "Server " << server.getID() << " finished request from " 
+                        << finishedReq.ip_in << std::endl;
+                requestsFinished++;
+            }
+        }   
     }
 
     // 2. SCALE: Check if we need to resize
@@ -72,12 +80,14 @@ void LoadBalancer::performCycle() {
             incWebServers();
             lastTimeChange = systemTime;
             std::cout << "[Cycle " << systemTime << "] Scaled UP to " << servers.size() << " servers." << std::endl;
+            scaleUpCount++;
         }
         // Scale Down Logic
         else if (getQueueSize() < 15 * servers.size() && servers.size() > 1) {
             if (decWebServers()) { // Try to remove one
                 lastTimeChange = systemTime;
                 std::cout << "[Cycle " << systemTime << "] Scaled DOWN to " << servers.size() << " servers." << std::endl;
+                scaleDownCount++;
             }
         }
     }
@@ -107,4 +117,15 @@ int LoadBalancer::getQueueSize() {
 
 int LoadBalancer::getTime() {
     return systemTime;
+}
+
+void LoadBalancer::printStats() {
+    std::cout << "\n=== Final Simulation Statistics ===" << std::endl;
+    std::cout << "Total Time Run: " << systemTime << " cycles" << std::endl;
+    std::cout << "Total Requests Finished: " << requestsFinished << std::endl;
+    std::cout << "Total Scale Up Events: " << scaleUpCount << std::endl;
+    std::cout << "Total Scale Down Events: " << scaleDownCount << std::endl;
+    std::cout << "Final Queue Size: " << requestQueue.size() << std::endl;
+    std::cout << "Final Server Count: " << servers.size() << std::endl;
+    std::cout << "===================================" << std::endl;
 }

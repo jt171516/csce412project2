@@ -39,6 +39,11 @@ bool WebServer::isRequestDone(int currTime) {
     return false;
 }
 
+// Check if currently busy
+bool WebServer::isBusyStatus() {
+    return isBusy;
+}
+
 // Getter for the request
 Request WebServer::getRequest() {
     return currentRequest;
