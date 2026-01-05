@@ -60,11 +60,6 @@ int main() {
         lb.performCycle();
 
         // B. Simulate New Traffic
-        // // Randomly add new requests during the simulation 
-        // if (rand() % 30 == 0) {
-        //     lb.addRequest(createRandomRequest());
-        // }
-
         if (cooldownTicks > 0) {
             cooldownTicks--;
         }
@@ -91,11 +86,10 @@ int main() {
             }
         }
 
-        // Optional: Print status every 1000 cycles to keep log readable
+        // Print status every 1000 cycles to keep log readable
         if (lb.getTime() % 1000 == 0) {
-             std::cout << "Cycle " << lb.getTime() 
-                       << ": Queue Size = " << lb.getQueueSize() 
-                       << std::endl;
+            lb.logMessage("Cycle " + std::to_string(lb.getTime()) + 
+                        ": Queue Size = " + std::to_string(lb.getQueueSize()));
         }
     }
 

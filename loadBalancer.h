@@ -3,12 +3,14 @@
 
 #include <queue>
 #include <vector>
+#include <fstream>
 #include "webServer.h"
 #include "request.h"
 
 class LoadBalancer {
 public:
     LoadBalancer(int initial_servers, std::string blocked_ip = "");
+    ~LoadBalancer();
 
     // Firewall logic happens here before pushing to queue
     void addRequest(Request req);
@@ -20,6 +22,7 @@ public:
     int getTime();
 
     void printStats();
+    void logMessage(std::string message);
 
 private:
     std::queue<Request> requestQueue;
@@ -32,6 +35,10 @@ private:
     long long int requestsFinished;
     int scaleUpCount;
     int scaleDownCount;
+    int blockedCount;
+
+    // Log File Object
+    std::ofstream logFile;
 
     // Helper functions for scaling
     void incWebServers();

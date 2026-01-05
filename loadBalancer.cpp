@@ -14,10 +14,34 @@ LoadBalancer::LoadBalancer(int initial_servers, std::string blocked_ip) {
     requestsFinished = 0;
     scaleUpCount = 0;
     scaleDownCount = 0;
+    blockedCount = 0;
+
+    // Open the log file
+    logFile.open("load_balancer_log.txt"); // <--- Creates/Overwrites file
+    if (!logFile.is_open()) {
+        std::cerr << "Error: Could not open log file!" << std::endl;
+    } else {
+        logFile << "--- Simulation Log Started ---" << std::endl;
+    }
 
     // Create the initial set of servers
     for (int i = 0; i < initial_servers; i++) {
         servers.push_back(WebServer(i));
+    }
+}
+
+LoadBalancer::~LoadBalancer() {
+    if (logFile.is_open()) {
+        logFile << "--- Simulation Log Ended ---" << std::endl;
+        logFile.close();
+    }
+}
+
+// Helper to write to both console and file
+void LoadBalancer::logMessage(std::string message) {
+    std::cout << message << std::endl;
+    if (logFile.is_open()) {
+        logFile << message << std::endl;
     }
 }
 
@@ -27,7 +51,8 @@ void LoadBalancer::addRequest(Request req) {
     // .find() returns 0 if the substring is found at the very start
     if (!blockedIPRange.empty() && req.ip_in.find(blockedIPRange) == 0) {
         // Log blocked request
-        std::cout << "Firewall Blocked: " << req.ip_in << std::endl;
+        logMessage("Firewall Blocked: " + req.ip_in);
+        blockedCount++;
         return; // Discard request
     }
 
@@ -65,8 +90,8 @@ void LoadBalancer::performCycle() {
             if (server.isRequestDone(systemTime)) {
                 // Request is done. You can log it here if you want.
                 Request finishedReq = server.getRequest();
-                std::cout << "Server " << server.getID() << " finished request from " 
-                        << finishedReq.ip_in << std::endl;
+                logMessage("Server " + std::to_string(server.getID()) + 
+                           " finished request from " + finishedReq.ip_in);
                 requestsFinished++;
             }
         }   
@@ -79,14 +104,16 @@ void LoadBalancer::performCycle() {
         if (getQueueSize() > 25 * servers.size()) {
             incWebServers();
             lastTimeChange = systemTime;
-            std::cout << "[Cycle " << systemTime << "] Scaled UP to " << servers.size() << " servers." << std::endl;
+            logMessage("[Cycle " + std::to_string(systemTime) + 
+                       "] Scaled UP to " + std::to_string(servers.size()) + " servers.");
             scaleUpCount++;
         }
         // Scale Down Logic
         else if (getQueueSize() < 15 * servers.size() && servers.size() > 1) {
             if (decWebServers()) { // Try to remove one
                 lastTimeChange = systemTime;
-                std::cout << "[Cycle " << systemTime << "] Scaled DOWN to " << servers.size() << " servers." << std::endl;
+                logMessage("[Cycle " + std::to_string(systemTime) + 
+                           "] Scaled DOWN to " + std::to_string(servers.size()) + " servers.");
                 scaleDownCount++;
             }
         }
@@ -120,12 +147,13 @@ int LoadBalancer::getTime() {
 }
 
 void LoadBalancer::printStats() {
-    std::cout << "\n=== Final Simulation Statistics ===" << std::endl;
-    std::cout << "Total Time Run: " << systemTime << " cycles" << std::endl;
-    std::cout << "Total Requests Finished: " << requestsFinished << std::endl;
-    std::cout << "Total Scale Up Events: " << scaleUpCount << std::endl;
-    std::cout << "Total Scale Down Events: " << scaleDownCount << std::endl;
-    std::cout << "Final Queue Size: " << requestQueue.size() << std::endl;
-    std::cout << "Final Server Count: " << servers.size() << std::endl;
-    std::cout << "===================================" << std::endl;
+    logMessage("\n=== Final Simulation Statistics ===");
+    logMessage("Total Time Run: " + std::to_string(systemTime) + " cycles");
+    logMessage("Total Requests Finished: " + std::to_string(requestsFinished));
+    logMessage("Total Scale Up Events: " + std::to_string(scaleUpCount));
+    logMessage("Total Scale Down Events: " + std::to_string(scaleDownCount));
+    logMessage("Total IPs Blocked: " + std::to_string(blockedCount));
+    logMessage("Final Queue Size: " + std::to_string(requestQueue.size()));
+    logMessage("Final Server Count: " + std::to_string(servers.size()));
+    logMessage("===================================");
 }
