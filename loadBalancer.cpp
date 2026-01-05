@@ -1,10 +1,19 @@
 #include "loadBalancer.h"
 #include <iostream>
 
-// How many cycles to wait
+/**
+ * @file loadBalancer.cpp
+ * @brief Implements the LoadBalancer class to manage request queues and server scaling.
+ */
+
+/// @brief Number of cycles between consecutive scaling evaluations.
 const int CYCLE_WAIT_TIME = 20;
 
-// Constructor
+/**
+ * @brief Initializes the load balancer, server pools, and logging facilities.
+ * @param initial_servers Number of servers to create initially.
+ * @param blocked_ip Optional IP range prefix to block.
+ */
 LoadBalancer::LoadBalancer(int initial_servers, std::string blocked_ip) {
     systemTime = 0;
     lastTimeChange = 0;
@@ -37,6 +46,7 @@ LoadBalancer::LoadBalancer(int initial_servers, std::string blocked_ip) {
     }
 }
 
+/** @brief Closes the log file and writes termination information. */
 LoadBalancer::~LoadBalancer() {
     if (logFile.is_open()) {
         logFile << "--- Simulation Log Ended ---" << std::endl;
@@ -44,7 +54,10 @@ LoadBalancer::~LoadBalancer() {
     }
 }
 
-// Helper to write to both console and file
+/**
+ * @brief Writes a message to both console output and the log file.
+ * @param message Message text to record.
+ */
 void LoadBalancer::logMessage(std::string message) {
     std::cout << message << std::endl;
     if (logFile.is_open()) {
@@ -52,7 +65,10 @@ void LoadBalancer::logMessage(std::string message) {
     }
 }
 
-// Firewall + Enqueue Logic
+/**
+ * @brief Applies firewall rules and enqueues the request in the appropriate queue.
+ * @param req Request to evaluate and enqueue.
+ */
 void LoadBalancer::addRequest(Request req) {
     // 1. Firewall Check
     if (!blockedIPRange.empty() && req.ip_in.find(blockedIPRange) == 0) {
@@ -70,7 +86,10 @@ void LoadBalancer::addRequest(Request req) {
     }
 }
 
-// Helper: Add a server (Scaling Up)
+/**
+ * @brief Adds a server to the requested pool when scaling up.
+ * @param type Pool selector ('P' for processing; otherwise streaming).
+ */
 void LoadBalancer::incWebServers(char type) {
     // Create a new server with a unique ID (current size + 1 or similar)
     if (type == 'P') {
@@ -80,8 +99,11 @@ void LoadBalancer::incWebServers(char type) {
     }
 }
 
-// Helper: Remove a server (Scaling Down)
-// Returns true if a server was actually removed (found an idle one)
+/**
+ * @brief Attempts to remove an idle server from the requested pool.
+ * @param type Pool selector ('P' for processing; otherwise streaming).
+ * @return True if a server was removed; otherwise false.
+ */
 bool LoadBalancer::decWebServers(char type) {
     std::vector<WebServer>* targetPool = (type == 'P') ? &pServers : &sServers;
 
@@ -97,7 +119,9 @@ bool LoadBalancer::decWebServers(char type) {
     return false;
 }
 
-// The Main Logic Loop (Harvest -> Scale -> Assign)
+/**
+ * @brief Runs a single cycle of harvesting completed work, scaling pools, and assigning new jobs.
+ */
 void LoadBalancer::performCycle() {
     // 1. HARVEST: Check for finished requests
     auto harvest = [&](std::vector<WebServer>& pool) {
@@ -175,14 +199,23 @@ void LoadBalancer::performCycle() {
     systemTime++;
 }
 
+/**
+ * @brief Computes the total number of queued requests across all pools.
+ * @return Combined size of processing and streaming queues.
+ */
 int LoadBalancer::getQueueSize() {
     return pQueue.size() + sQueue.size();
 }
 
+/**
+ * @brief Reports the current simulation time.
+ * @return Elapsed cycles since the start of the simulation.
+ */
 int LoadBalancer::getTime() {
     return systemTime;
 }
 
+/** @brief Prints final simulation statistics to the log and console. */
 void LoadBalancer::printStats() {
     logMessage("\n=== Final Simulation Statistics ===");
     logMessage("Total Time Run: " + std::to_string(systemTime));

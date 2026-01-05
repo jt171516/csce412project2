@@ -5,19 +5,30 @@
 #include "loadBalancer.h"
 #include "request.h"
 
+/**
+ * @file main.cpp
+ * @brief Runs the load balancer simulation by generating requests and driving cycles.
+ */
+
 // Constants for task times
 const int MIN_TASK_TIME = 40;
 const int MAX_TASK_TIME = 99;
 
-// Helper function to generate a random IP address
+/**
+ * @brief Generates a random IPv4 address string.
+ * @return Randomly generated dotted-quad IP address.
+ */
 std::string generateRandomIP() {
-    return std::to_string(rand() % 255) + "." + 
-           std::to_string(rand() % 255) + "." + 
-           std::to_string(rand() % 255) + "." + 
+    return std::to_string(rand() % 255) + "." +
+           std::to_string(rand() % 255) + "." +
+           std::to_string(rand() % 255) + "." +
            std::to_string(rand() % 255);
 }
 
-// Helper function to create a random Request
+/**
+ * @brief Creates a randomized Request with timing and job type.
+ * @return Request populated with random IPs, duration, and job category.
+ */
 Request createRandomRequest() {
     Request req;
     req.ip_in = generateRandomIP();
@@ -29,6 +40,10 @@ Request createRandomRequest() {
     return req;
 }
 
+/**
+ * @brief Entry point for the load balancer simulation.
+ * @return Zero on successful execution.
+ */
 int main() {
     // Seed the random number generator
     srand(time(0));
