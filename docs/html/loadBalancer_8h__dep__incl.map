@@ -1,0 +1,5 @@
+<map id="loadBalancer.h" name="loadBalancer.h">
+<area shape="rect" id="node1" title="Declares the LoadBalancer class that orchestrates server pools and request routing." alt="" coords="78,5,197,32"/>
+<area shape="rect" id="node2" href="$loadBalancer_8cpp.html" title="Implements the LoadBalancer class to manage request queues and server scaling." alt="" coords="5,80,139,107"/>
+<area shape="rect" id="node3" href="$main_8cpp.html" title="Runs the load balancer simulation by generating requests and driving cycles." alt="" coords="163,80,245,107"/>
+</map>

@@ -1,0 +1,28 @@
+var classLoadBalancer =
+[
+    [ "LoadBalancer", "classLoadBalancer.html#aa1470c6cffa492822b15b3822861c586", null ],
+    [ "~LoadBalancer", "classLoadBalancer.html#a69951a7bb77be7fafd4d5ad6919abd80", null ],
+    [ "addRequest", "classLoadBalancer.html#ac1e1ed080cba145743b288f0a5b21307", null ],
+    [ "decWebServers", "classLoadBalancer.html#a07aa4015d70d1223e1a11fcb8e00f384", null ],
+    [ "getQueueSize", "classLoadBalancer.html#ac104e708c3d8a6984122d9a0df13b80b", null ],
+    [ "getTime", "classLoadBalancer.html#a53a98f96b3ed2f4940d16b24e16f3d48", null ],
+    [ "incWebServers", "classLoadBalancer.html#a32469acebb27259a867dc7db56b5e5b8", null ],
+    [ "logMessage", "classLoadBalancer.html#a350368b353cf0d5081420307d30befce", null ],
+    [ "performCycle", "classLoadBalancer.html#a3660dc63e2169f39cbd0d3cdd73506e2", null ],
+    [ "printStats", "classLoadBalancer.html#aabecea9c75ee669dd0bffbce23a5a31e", null ],
+    [ "blockedCount", "classLoadBalancer.html#a976e3eb29115b69f751db080669797cc", null ],
+    [ "blockedIPRange", "classLoadBalancer.html#a5835d60b11402e607cc622b9af802210", null ],
+    [ "lastTimeChange", "classLoadBalancer.html#a804e89deaa303f6f984e8fe30cfe5679", null ],
+    [ "logFile", "classLoadBalancer.html#a378ff5516d45a32d42e92678ade2b668", null ],
+    [ "nextServerID", "classLoadBalancer.html#adffe362b654c6b00088a0aa5dc99430e", null ],
+    [ "pQueue", "classLoadBalancer.html#a66a22f5c311c96256cbbc7283f24e0de", null ],
+    [ "pServers", "classLoadBalancer.html#a4920c040d100e38c3739ba49f0fe2a2a", null ],
+    [ "requestsFinished", "classLoadBalancer.html#ae264dceca3505836f06e310d3bbef237", null ],
+    [ "scaleDownCountP", "classLoadBalancer.html#a2b06f3d89325dbe197727b3ff518c566", null ],
+    [ "scaleDownCountS", "classLoadBalancer.html#a9c5a7d72221c5942dbe7b5af5fb8b84e", null ],
+    [ "scaleUpCountP", "classLoadBalancer.html#a34e4d8203a57706bd2857ee333eeb628", null ],
+    [ "scaleUpCountS", "classLoadBalancer.html#a7eeb9a295544b06c6b4bbd6dd5a0a107", null ],
+    [ "sQueue", "classLoadBalancer.html#a5a2d1e561375ffc71943b502e6267037", null ],
+    [ "sServers", "classLoadBalancer.html#a12f4ee0b2a2fb95647e19ccb00d97ebe", null ],
+    [ "systemTime", "classLoadBalancer.html#a3567c2ee513201de3c75bede2a277b8e", null ]
+];

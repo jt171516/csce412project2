@@ -1,0 +1,14 @@
+<map id="LoadBalancer" name="LoadBalancer">
+<area shape="rect" id="node1" title=" " alt="" coords="218,512,329,539"/>
+<area shape="rect" id="node2" title=" " alt="" coords="71,408,262,435"/>
+<area shape="rect" id="node3" href="$classWebServer.html" title=" " alt="" coords="138,311,230,338"/>
+<area shape="rect" id="node4" href="$structRequest.html" title=" " alt="" coords="119,207,193,234"/>
+<area shape="rect" id="node5" title=" " alt="" coords="59,96,146,123"/>
+<area shape="rect" id="node6" title=" " alt="" coords="33,5,172,47"/>
+<area shape="rect" id="node7" title=" " alt="" coords="287,408,396,435"/>
+<area shape="rect" id="node8" title=" " alt="" coords="266,304,417,345"/>
+<area shape="rect" id="node9" title=" " alt="" coords="269,200,414,241"/>
+<area shape="rect" id="node10" title=" " alt="" coords="256,96,427,123"/>
+<area shape="rect" id="node11" title=" " alt="" coords="288,13,395,39"/>
+<area shape="rect" id="node12" title=" " alt="" coords="420,408,593,435"/>
+</map>

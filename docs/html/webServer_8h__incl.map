@@ -1,0 +1,5 @@
+<map id="webServer.h" name="webServer.h">
+<area shape="rect" id="node1" title="Declares the WebServer class that handles individual request processing." alt="" coords="5,5,108,32"/>
+<area shape="rect" id="node2" href="$request_8h.html" title="Defines the Request struct used to represent incoming jobs." alt="" coords="15,80,98,107"/>
+<area shape="rect" id="node3" title=" " alt="" coords="27,155,86,181"/>
+</map>

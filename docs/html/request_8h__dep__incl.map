@@ -1,0 +1,8 @@
+<map id="request.h" name="request.h">
+<area shape="rect" id="node1" title="Defines the Request struct used to represent incoming jobs." alt="" coords="79,5,161,32"/>
+<area shape="rect" id="node2" href="$loadBalancer_8h.html" title="Declares the LoadBalancer class that orchestrates server pools and request routing." alt="" coords="85,155,203,181"/>
+<area shape="rect" id="node4" href="$main_8cpp.html" title="Runs the load balancer simulation by generating requests and driving cycles." alt="" coords="5,229,88,256"/>
+<area shape="rect" id="node5" href="$webServer_8h.html" title="Declares the WebServer class that handles individual request processing." alt="" coords="158,80,261,107"/>
+<area shape="rect" id="node3" href="$loadBalancer_8cpp.html" title="Implements the LoadBalancer class to manage request queues and server scaling." alt="" coords="112,229,245,256"/>
+<area shape="rect" id="node6" href="$webServer_8cpp.html" title="Implements the WebServer class responsible for handling individual requests." alt="" coords="227,155,344,181"/>
+</map>

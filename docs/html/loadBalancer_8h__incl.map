@@ -1,0 +1,9 @@
+<map id="loadBalancer.h" name="loadBalancer.h">
+<area shape="rect" id="node1" title="Declares the LoadBalancer class that orchestrates server pools and request routing." alt="" coords="156,5,275,32"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,80,68,107"/>
+<area shape="rect" id="node3" title=" " alt="" coords="92,80,155,107"/>
+<area shape="rect" id="node4" title=" " alt="" coords="179,80,252,107"/>
+<area shape="rect" id="node5" href="$webServer_8h.html" title="Declares the WebServer class that handles individual request processing." alt="" coords="276,80,379,107"/>
+<area shape="rect" id="node6" href="$request_8h.html" title="Defines the Request struct used to represent incoming jobs." alt="" coords="330,155,413,181"/>
+<area shape="rect" id="node7" title=" " alt="" coords="342,229,401,256"/>
+</map>

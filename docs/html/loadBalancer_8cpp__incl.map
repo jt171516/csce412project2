@@ -1,0 +1,11 @@
+<map id="loadBalancer.cpp" name="loadBalancer.cpp">
+<area shape="rect" id="node1" title="Implements the LoadBalancer class to manage request queues and server scaling." alt="" coords="210,5,343,32"/>
+<area shape="rect" id="node2" href="$loadBalancer_8h.html" title="Declares the LoadBalancer class that orchestrates server pools and request routing." alt="" coords="156,80,275,107"/>
+<area shape="rect" id="node9" title=" " alt="" coords="298,80,378,107"/>
+<area shape="rect" id="node3" title=" " alt="" coords="5,155,68,181"/>
+<area shape="rect" id="node4" title=" " alt="" coords="92,155,155,181"/>
+<area shape="rect" id="node5" title=" " alt="" coords="179,155,252,181"/>
+<area shape="rect" id="node6" href="$webServer_8h.html" title="Declares the WebServer class that handles individual request processing." alt="" coords="276,155,379,181"/>
+<area shape="rect" id="node7" href="$request_8h.html" title="Defines the Request struct used to represent incoming jobs." alt="" coords="330,229,413,256"/>
+<area shape="rect" id="node8" title=" " alt="" coords="342,304,401,331"/>
+</map>

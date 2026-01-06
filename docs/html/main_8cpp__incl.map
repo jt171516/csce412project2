@@ -1,0 +1,13 @@
+<map id="main.cpp" name="main.cpp">
+<area shape="rect" id="node1" title="Runs the load balancer simulation by generating requests and driving cycles." alt="" coords="195,5,277,32"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,80,85,107"/>
+<area shape="rect" id="node3" title=" " alt="" coords="91,155,154,181"/>
+<area shape="rect" id="node4" title=" " alt="" coords="161,80,226,107"/>
+<area shape="rect" id="node5" title=" " alt="" coords="251,80,309,107"/>
+<area shape="rect" id="node6" href="$loadBalancer_8h.html" title="Declares the LoadBalancer class that orchestrates server pools and request routing." alt="" coords="334,80,453,107"/>
+<area shape="rect" id="node10" href="$request_8h.html" title="Defines the Request struct used to represent incoming jobs." alt="" coords="461,229,544,256"/>
+<area shape="rect" id="node7" title=" " alt="" coords="178,155,241,181"/>
+<area shape="rect" id="node8" title=" " alt="" coords="265,155,338,181"/>
+<area shape="rect" id="node9" href="$webServer_8h.html" title="Declares the WebServer class that handles individual request processing." alt="" coords="362,155,465,181"/>
+<area shape="rect" id="node11" title=" " alt="" coords="473,304,532,331"/>
+</map>

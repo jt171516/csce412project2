@@ -1,0 +1,7 @@
+<map id="webServer.h" name="webServer.h">
+<area shape="rect" id="node1" title="Declares the WebServer class that handles individual request processing." alt="" coords="157,5,259,32"/>
+<area shape="rect" id="node2" href="$loadBalancer_8h.html" title="Declares the LoadBalancer class that orchestrates server pools and request routing." alt="" coords="78,80,197,107"/>
+<area shape="rect" id="node5" href="$webServer_8cpp.html" title="Implements the WebServer class responsible for handling individual requests." alt="" coords="220,80,337,107"/>
+<area shape="rect" id="node3" href="$loadBalancer_8cpp.html" title="Implements the LoadBalancer class to manage request queues and server scaling." alt="" coords="5,155,139,181"/>
+<area shape="rect" id="node4" href="$main_8cpp.html" title="Runs the load balancer simulation by generating requests and driving cycles." alt="" coords="163,155,245,181"/>
+</map>

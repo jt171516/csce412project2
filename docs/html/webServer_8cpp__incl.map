@@ -1,0 +1,6 @@
+<map id="webServer.cpp" name="webServer.cpp">
+<area shape="rect" id="node1" title="Implements the WebServer class responsible for handling individual requests." alt="" coords="5,5,123,32"/>
+<area shape="rect" id="node2" href="$webServer_8h.html" title="Declares the WebServer class that handles individual request processing." alt="" coords="13,80,115,107"/>
+<area shape="rect" id="node3" href="$request_8h.html" title="Defines the Request struct used to represent incoming jobs." alt="" coords="23,155,105,181"/>
+<area shape="rect" id="node4" title=" " alt="" coords="35,229,93,256"/>
+</map>
